@@ -1,14 +1,5 @@
-# ultrapremium_dashboard.py
-import streamlit as st
-import pandas as pd
-import folium
-from streamlit_folium import st_folium
-from folium.plugins import HeatMap, MarkerCluster
-from geopy.distance import geodesic
-import plotly.express as px
-import os
-import time
-from datetime import datetime
-from streamlit_plotly_events import plotly_events
-import random
-from math import radians, cos, sin, asin, sqrt
+streamlit
+pandas
+folium
+streamlit-folium
+geopy
