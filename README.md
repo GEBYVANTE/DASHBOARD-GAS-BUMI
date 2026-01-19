@@ -558,12 +558,9 @@ elif page == "coba aja":
 # 🔷 Render ALL Manual Clusters
 # ================================
                 if "manual_clusters" in st.session_state and SHAPELY_AVAILABLE:
-
                     for cname, cdata in st.session_state.manual_clusters.items():
-
                         if not cdata.get("active", True):
                             continue
-
                         points = []
 
                         for usaha in cdata.get("members", []):
@@ -610,4 +607,4 @@ elif page == "coba aja":
 # Footer / small helper
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ </div>", unsafe_allow_html=True)
