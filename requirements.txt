@@ -5,4 +5,5 @@ streamlit-folium
 geopy
 plotly
 streamlit-plotly-events
+shapely>=2.0
 
