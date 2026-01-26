@@ -167,7 +167,7 @@ time.sleep(0.05)
 # Sidebar: Navigation & filters
 # -------------------------
 st.sidebar.title("geby cantik dan selalu bahagia")
-page = st.sidebar.radio("Navigation", ["Dashboard Utama", "Peta Radius", "Data & Catatan", "Settings", "coba aja",])
+page = st.sidebar.radio("Navigation", ["Dashboard Utama", "Peta Radius", "Peta Cluster","Data & Catatan", "Settings",])
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Advanced Filter**")
@@ -495,46 +495,6 @@ elif page == "Peta Radius":
                 st.success("Catatan tersimpan.")
         st.markdown("</div>", unsafe_allow_html=True)
 
-        
-
-elif page == "Data & Catatan":
-    st.write("### Data & Catatan (Eksport / Import)")
-    st.markdown("<div class='glass'>", unsafe_allow_html=True)
-    st.write("#### Data Usaha (Preview)")
-    st.dataframe(data.head(200), use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='glass'>", unsafe_allow_html=True)
-    st.write("#### Catatan Kunjungan")
-    nd = pd.read_csv(NOTES_PATH) if os.path.exists(NOTES_PATH) else pd.DataFrame(columns=["timestamp","nama_usaha","lat","lon","catatan"])
-    st.dataframe(nd.sort_values("timestamp", ascending=False).reset_index(drop=True), use_container_width=True)
-    csv = nd.to_csv(index=False).encode('utf-8')
-    st.download_button("Download Catatan CSV", csv, "catatan_kunjungan.csv", "text/csv")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='glass'>", unsafe_allow_html=True)
-    st.write("#### Import Data Baru (Replace)")
-    uploaded = st.file_uploader("Upload CSV (akan mengganti data saat ini)", type=["csv"])
-    if uploaded is not None:
-        try:
-            newdf = pd.read_csv(uploaded)
-            newdf.to_csv(DATA_PATH, index=False)
-            st.success("Data baru diupload. Dashboard akan reload otomatis.")
-            st.experimental_rerun()
-        except Exception as e:
-            st.error(f"Gagal mengupload: {e}")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-elif page == "Settings":
-    st.write("### Settings & Preferences")
-    st.markdown("<div class='glass'>", unsafe_allow_html=True)
-    st.write("Auto-refresh file change:")
-    st.checkbox("Enable Auto Reload on CSV change", value=AUTO_REFRESH, key="auto_reload_checkbox")
-    if st.button("Force Check & Reload"):
-        st.session_state.data_mtime = file_mtime(DATA_PATH)
-        st.experimental_rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
-
 elif page == "coba aja":
         left_col, right_col = st.columns([2,1])
         with left_col:
@@ -606,8 +566,47 @@ elif page == "coba aja":
                 st_folium(m, width=1000, height=900)
                 st.markdown("</div>", unsafe_allow_html=True)
 
+
+elif page == "Data & Catatan":
+    st.write("### Data & Catatan (Eksport / Import)")
+    st.markdown("<div class='glass'>", unsafe_allow_html=True)
+    st.write("#### Data Usaha (Preview)")
+    st.dataframe(data.head(200), use_container_width=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown("<div class='glass'>", unsafe_allow_html=True)
+    st.write("#### Catatan Kunjungan")
+    nd = pd.read_csv(NOTES_PATH) if os.path.exists(NOTES_PATH) else pd.DataFrame(columns=["timestamp","nama_usaha","lat","lon","catatan"])
+    st.dataframe(nd.sort_values("timestamp", ascending=False).reset_index(drop=True), use_container_width=True)
+    csv = nd.to_csv(index=False).encode('utf-8')
+    st.download_button("Download Catatan CSV", csv, "catatan_kunjungan.csv", "text/csv")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown("<div class='glass'>", unsafe_allow_html=True)
+    st.write("#### Import Data Baru (Replace)")
+    uploaded = st.file_uploader("Upload CSV (akan mengganti data saat ini)", type=["csv"])
+    if uploaded is not None:
+        try:
+            newdf = pd.read_csv(uploaded)
+            newdf.to_csv(DATA_PATH, index=False)
+            st.success("Data baru diupload. Dashboard akan reload otomatis.")
+            st.experimental_rerun()
+        except Exception as e:
+            st.error(f"Gagal mengupload: {e}")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+elif page == "Settings":
+    st.write("### Settings & Preferences")
+    st.markdown("<div class='glass'>", unsafe_allow_html=True)
+    st.write("Auto-refresh file change:")
+    st.checkbox("Enable Auto Reload on CSV change", value=AUTO_REFRESH, key="auto_reload_checkbox")
+    if st.button("Force Check & Reload"):
+        st.session_state.data_mtime = file_mtime(DATA_PATH)
+        st.experimental_rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
 # -------------------------
 # Footer / small helper
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
