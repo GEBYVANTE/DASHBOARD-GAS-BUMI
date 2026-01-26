@@ -235,6 +235,8 @@ if page == "Dashboard Utama":
         # main map + charts
         left_col, right_col = st.columns([2,1])
         with left_col:
+            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
             st.markdown("<div class='glass map-box'>", unsafe_allow_html=True)
             st.write("### Peta Persebaran Usaha (Preview)")
             # show small folium map with markers
@@ -263,7 +265,18 @@ if page == "Dashboard Utama":
                 st.markdown("</div>", unsafe_allow_html=True)
 
         with right_col:
-            # Pie: Persentase Jenis Usaha
+          
+            # Top daerah table
+            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("<div class='glass'>", unsafe_allow_html=True)
+            st.write("### Top Daerah dengan Usaha Terbanyak")
+            daerah_count = data["daerah"].value_counts().reset_index()
+            daerah_count.columns = ["daerah", "jumlah"]
+            st.table(daerah_count.head(8).reset_index(drop=True))
+            st.markdown("</div>", unsafe_allow_html=True)
+            
+              # Pie: Persentase Jenis Usaha
             st.markdown("<div class='glass'>", unsafe_allow_html=True)
             st.write("### Persentase Jenis Usaha")
             jenis_count = data["Jenis Usaha"].value_counts().reset_index()
@@ -272,28 +285,8 @@ if page == "Dashboard Utama":
             st.plotly_chart(fig, use_container_width=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
-            # Top daerah table
-            st.markdown("<div class='glass'>", unsafe_allow_html=True)
-            st.write("### Top Daerah dengan Usaha Terbanyak")
-            daerah_count = data["daerah"].value_counts().reset_index()
-            daerah_count.columns = ["daerah", "jumlah"]
-            st.table(daerah_count.head(8).reset_index(drop=True))
-            st.markdown("</div>", unsafe_allow_html=True)
 
     with c2:
-        # filter card, interactive
-        st.markdown("<div class='glass'>", unsafe_allow_html=True)
-        st.write("### Filter (Fast Panel)")
-        # quick filters (mirrors sidebar)
-        q1 = st.selectbox("Jenis Usaha (quick)", ["SEMUA"] + list(sorted(data["Jenis Usaha"].unique())), key="qjenis")
-        q2 = st.selectbox("Daerah (quick)", ["SEMUA"] + list(sorted(data["daerah"].unique())), key="qdaerah")
-        qmin, qmax = st.slider("Range Review (quick)", int(data["review"].min()), int(max(1, data["review"].max())), (int(data["review"].min()), int(max(1, data["review"].max()))), key="qrange")
-        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-        if st.button("Apply Quick Filter"):
-            # update sidebar selections to keep UI consistent
-            st.session_state.update({"sel_jenis": q1, "sel_daerah": q2, "min_review": qmin, "max_review": qmax})
-            st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
 
         # Recent activity / notes summary
         st.markdown("<div class='glass'>", unsafe_allow_html=True)
@@ -610,5 +603,6 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
