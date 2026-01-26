@@ -322,7 +322,7 @@ if page == "Dashboard Utama":
                 heat_data = df_filtered[["lat","lon"]].dropna().values.tolist()
                 HeatMap(heat_data, radius=18, blur=10, min_opacity=0.3).add_to(m)
 
-            st_folium(m, width=900, height=550)
+            st_folium(m, width=900, height=540)
             st.markdown("</div>", unsafe_allow_html=True)
 
             
@@ -606,6 +606,7 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
