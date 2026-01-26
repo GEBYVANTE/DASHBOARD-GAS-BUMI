@@ -298,8 +298,7 @@ if page == "Dashboard Utama":
 
        
         #peta 
-        st.markdown("</div>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+       
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("<div class='glass map-box'>", unsafe_allow_html=True)
         st.write("### Peta Persebaran Usaha (Preview)")
@@ -341,6 +340,7 @@ if page == "Dashboard Utama":
                     st.markdown(f"<div style='opacity:0.7'>{row['catatan']}</div>", unsafe_allow_html=True)
                     st.markdown("---")
             st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("<div class='glass map-box'>", unsafe_allow_html=True)
 
 
 elif page == "Peta Radius":
@@ -608,6 +608,7 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
