@@ -345,40 +345,7 @@ if page == "Dashboard Utama":
 
 
         
-        st.markdown("<div class='glass'>", unsafe_allow_html=True)
-        st.write("### Top Daerah dengan Usaha Terbanyak")
-
-        # Hitung jumlah usaha per daerah
-        daerah_count = df_filtered["daerah"].value_counts().reset_index()
-        daerah_count.columns = ["daerah", "jumlah"]
-
-        top8 = daerah_count.head(8)
-
-        # Buat bar chart horizontal
-        fig_bar = px.bar(
-            top8,
-            x="jumlah",
-            y="daerah",
-            orientation="h",
-            title="",
-            labels={"jumlah": "Jumlah Usaha", "daerah": "Daerah"},
-        )
-
-        fig_bar.update_traces(textposition="outside")
-
-        # Styling chart premium
-        fig_bar.update_layout(
-            showlegend=False,
-            margin=dict(l=10, r=10, t=10, b=10),
-            height=350,
-            plot_bgcolor="rgba(0,0,0,0)",
-            paper_bgcolor="rgba(0,0,0,0)",
-        )
-
-        # ⚠️ Penting! Kalau tidak ada ini, grafik TIDAK AKAN muncul
-        st.plotly_chart(fig_bar, use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-
+    
 
 
 elif page == "Peta Radius":
@@ -646,6 +613,7 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
