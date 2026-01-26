@@ -233,37 +233,45 @@ if page == "Dashboard Utama":
         
 
         # main map + charts
-        left_col, right_col = st.columns([2,1])
+        left_col, right_col = st.columns([1.5,1.5])
         with left_col:
             st.markdown("</div>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
-            st.markdown("<div class='glass map-box'>", unsafe_allow_html=True)
-            st.write("### Peta Persebaran Usaha (Preview)")
-            # show small folium map with markers
-            if len(df_filtered) == 0:
-                st.info("Tidak ada usaha yang cocok dengan filter.")
-                st.markdown("</div>", unsafe_allow_html=True)
-            else:
-                center_lat = df_filtered["lat"].median()
-                center_lon = df_filtered["lon"].median()
-                m = folium.Map(location=[center_lat, center_lon], zoom_start=12, tiles="CartoDB dark_matter")
-                mc = MarkerCluster()
-                for _, r in df_filtered.iterrows():
-                    folium.Marker(
-                        [r["lat"], r["lon"]],
-                        popup=f"<b>{r['nama_usaha']}</b><br>{r['Jenis Usaha']}<br>{r['daerah']}<br>Review: {int(r['review'])}"
-                    ).add_to(mc)
-                mc.add_to(m)
+    
+            st.markdown("<div class='glass'>", unsafe_allow_html=True)
+            st.write("### Top Daerah dengan Usaha Terbanyak")
 
-                # optional heatmap overlay
-                heat_on = st.checkbox("Tampilkan Heatmap pada preview", value=True)
-                if heat_on:
-                    heat_data = df_filtered[["lat","lon"]].dropna().values.tolist()
-                    HeatMap(heat_data, radius=18, blur=10, min_opacity=0.3).add_to(m)
+        # Hitung jumlah usaha per daerah
+            daerah_count = df_filtered["daerah"].value_counts().reset_index()
+            daerah_count.columns = ["daerah", "jumlah"]
 
-                st_folium(m, width=900, height=520)
-                st.markdown("</div>", unsafe_allow_html=True)
+            top8 = daerah_count.head(8)
 
+        # Buat bar chart horizontal
+            fig_bar = px.bar(
+                top8,
+                x="jumlah",
+                y="daerah",
+                orientation="h",
+                title="",
+                labels={"jumlah": "Jumlah Usaha", "daerah": "Daerah"},
+            )
+
+            fig_bar.update_traces(textposition="outside")
+
+        # Styling chart premium
+            fig_bar.update_layout(
+                showlegend=False,
+                margin=dict(l=10, r=10, t=10, b=10),
+                height=350,
+                plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="rgba(0,0,0,0)",
+            )
+
+        # ⚠️ Penting! Kalau tidak ada ini, grafik TIDAK AKAN muncul
+            st.plotly_chart(fig_bar, use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+        
         with right_col:
           
             # Top daerah table
@@ -305,6 +313,38 @@ if page == "Dashboard Utama":
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("<div class='glass map-box'>", unsafe_allow_html=True)
+        st.write("### Peta Persebaran Usaha (Preview)")
+            # show small folium map with markers
+        if len(df_filtered) == 0:
+            st.info("Tidak ada usaha yang cocok dengan filter.")
+            st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            center_lat = df_filtered["lat"].median()
+            center_lon = df_filtered["lon"].median()
+            m = folium.Map(location=[center_lat, center_lon], zoom_start=12, tiles="CartoDB dark_matter")
+            mc = MarkerCluster()
+            for _, r in df_filtered.iterrows():
+                folium.Marker(
+                    [r["lat"], r["lon"]],
+                    popup=f"<b>{r['nama_usaha']}</b><br>{r['Jenis Usaha']}<br>{r['daerah']}<br>Review: {int(r['review'])}"
+                ).add_to(mc)
+            mc.add_to(m)
+
+                # optional heatmap overlay
+            heat_on = st.checkbox("Tampilkan Heatmap pada preview", value=True)
+            if heat_on:
+                heat_data = df_filtered[["lat","lon"]].dropna().values.tolist()
+                HeatMap(heat_data, radius=18, blur=10, min_opacity=0.3).add_to(m)
+
+            st_folium(m, width=900, height=520)
+            st.markdown("</div>", unsafe_allow_html=True)
+
+
+
+
+
+        
         st.markdown("<div class='glass'>", unsafe_allow_html=True)
         st.write("### Top Daerah dengan Usaha Terbanyak")
 
@@ -606,6 +646,7 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
