@@ -166,7 +166,7 @@ time.sleep(0.05)
 # -------------------------
 # Sidebar: Navigation & filters
 # -------------------------
-st.sidebar.title("geby cantik dan selalu bahagia")
+st.sidebar.title("Dashboard Pemetaan & Analisis Cluster Usaha")
 page = st.sidebar.radio("Navigation", ["Dashboard Utama", "Peta Radius", "Peta Cluster","Data & Catatan", "Settings",])
 
 st.sidebar.markdown("---")
@@ -495,10 +495,10 @@ elif page == "Peta Radius":
                 st.success("Catatan tersimpan.")
         st.markdown("</div>", unsafe_allow_html=True)
 
-elif page == "coba aja":
+elif page == "Peta Cluster":
         left_col, right_col = st.columns([2,1])
         with left_col:
-            st.write("### Coba Coba Aja Yah gusy")
+            st.write("### Peta Segmentasi Cluster Usaha")
             st.markdown("<div class='glass'>", unsafe_allow_html=True)
             if len(df_filtered) == 0:
                 st.info("Tidak ada usaha yang cocok dengan filter.")
@@ -506,7 +506,7 @@ elif page == "coba aja":
             else:
                 center_lat = df_filtered["lat"].median()
                 center_lon = df_filtered["lon"].median()
-                m = folium.Map(location=[center_lat, center_lon], zoom_start=12, tiles="CartoDB dark_matter")
+                m = folium.Map(location=[center_lat, center_lon], zoom_start=12, tiles="CartoDB positron")
                 mc = MarkerCluster()
                 for _, r in df_filtered.iterrows():
                     folium.Marker(
@@ -553,11 +553,12 @@ elif page == "coba aja":
                                 icon=folium.DivIcon(html=f"""
                                     <div style="
                                         font-weight:700;
-                                        background:rgba(0,0,0,0.65);
+                                        background:rgba(255,255,255,0.85);
                                         color:white;
                                         padding:4px 8px;
                                         border-radius:6px;
-                                        font-size:11px;">
+                                        font-size:11px;
+                                        box-shadow:0 2px 6px rgba(0,0,0,0.3);">
                                         {cname}
                                     </div>
                                 """)
@@ -609,4 +610,5 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
