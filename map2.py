@@ -296,20 +296,8 @@ if page == "Dashboard Utama":
 
     with c2:
 
-        # Recent activity / notes summary
-        st.markdown("<div class='glass'>", unsafe_allow_html=True)
-        st.write("### Recent Notes")
-        if notes_df.shape[0] == 0:
-            st.info("Belum ada catatan kunjungan.")
-        else:
-            recent = notes_df.sort_values("timestamp", ascending=False).head(6)
-            for _, row in recent.iterrows():
-                st.markdown(f"**{row['nama_usaha']}** — {row['timestamp']}")
-                st.markdown(f"<div style='opacity:0.7'>{row['catatan']}</div>", unsafe_allow_html=True)
-                st.markdown("---")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-        # Top daerah chart (clickable)
+       
+        #peta 
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
@@ -340,12 +328,19 @@ if page == "Dashboard Utama":
             st_folium(m, width=900, height=520)
             st.markdown("</div>", unsafe_allow_html=True)
 
-
-
-
-
-        
-    
+            
+ # Recent activity / notes summary
+            st.markdown("<div class='glass'>", unsafe_allow_html=True)
+            st.write("### Recent Notes")
+            if notes_df.shape[0] == 0:
+                st.info("Belum ada catatan kunjungan.")
+            else:
+                recent = notes_df.sort_values("timestamp", ascending=False).head(6)
+                for _, row in recent.iterrows():
+                    st.markdown(f"**{row['nama_usaha']}** — {row['timestamp']}")
+                    st.markdown(f"<div style='opacity:0.7'>{row['catatan']}</div>", unsafe_allow_html=True)
+                    st.markdown("---")
+            st.markdown("</div>", unsafe_allow_html=True)
 
 
 elif page == "Peta Radius":
@@ -613,6 +608,7 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
