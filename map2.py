@@ -305,6 +305,7 @@ if page == "Dashboard Utama":
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("<div class='glass'>", unsafe_allow_html=True)
         st.write("### Top Daerah dengan Usaha Terbanyak")
 
