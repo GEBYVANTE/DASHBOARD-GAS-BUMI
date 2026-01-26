@@ -298,8 +298,6 @@ if page == "Dashboard Utama":
 
        
         #peta 
-       
-        st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("<div class='glass map-box'>", unsafe_allow_html=True)
         st.write("### Peta Persebaran Usaha (Preview)")
             # show small folium map with markers
@@ -608,6 +606,7 @@ elif page == "Settings":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
