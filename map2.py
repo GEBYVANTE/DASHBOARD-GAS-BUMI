@@ -592,20 +592,13 @@ elif page == "Data & Catatan":
             st.error(f"Gagal mengupload: {e}")
     st.markdown("</div>", unsafe_allow_html=True)
 
-elif page == "Settings":
-    st.write("### Settings & Preferences")
-    st.markdown("<div class='glass'>", unsafe_allow_html=True)
-    st.write("Auto-refresh file change:")
-    st.checkbox("Enable Auto Reload on CSV change", value=AUTO_REFRESH, key="auto_reload_checkbox")
-    if st.button("Force Check & Reload"):
-        st.session_state.data_mtime = file_mtime(DATA_PATH)
-        st.experimental_rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
+
 # -------------------------
 # Footer / small helper
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
