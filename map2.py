@@ -167,7 +167,7 @@ time.sleep(0.05)
 # Sidebar: Navigation & filters
 # -------------------------
 st.sidebar.title("Dashboard Pemetaan & Analisis Cluster Usaha")
-page = st.sidebar.radio("Navigation", ["Dashboard Utama", "Peta Radius", "Peta Cluster","Data & Catatan", "Settings",])
+page = st.sidebar.radio("Navigation", ["Dashboard Utama", "Peta Radius", "Peta Cluster","Data & Catatan",])
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Advanced Filter**")
@@ -598,6 +598,7 @@ elif page == "Data & Catatan":
 # -------------------------
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='opacity:0.6;font-size:12px'>Built with ❤️ — Ultra-Premium Dashboard · Local mode</div>", unsafe_allow_html=True)
+
 
 
 
